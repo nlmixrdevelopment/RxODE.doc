@@ -1,6 +1,92 @@
 template:
   params:
     bootswatch: flatly
+ 
+
+reference:
+- title: Creating RxODE compiled objects
+  contents:
+  - RxODE
+- title: Creating RxODE event tables/data frames
+  contents:
+  - et
+  - etRbind
+  - etRep
+  - etSeq
+  - as.et
+  - eventTable
+  - add.dosing
+  - add.sampling
+- title: Solving, Simulating and Solving options
+  contents:
+  - rxSolve
+- title: Exploring RxODE and creating models with Shiny
+  contents:
+  - rxShiny
+  - genShinyApp.template
+- title: Cleaning caches
+  contents:
+  - rxClean
+  - rxTempDir
+- title: Using RxODE in Packages
+  contents:
+  - rxUse
+- title: Specialized Simulation functions
+  contents:
+  - cvPost
+  - rinvchisq
+- title: Optimizing models and/or adding precision
+  contents:
+  - rxOptExpr
+  - rxSumProdModel
+  - rxSetProd
+  - rxSetSum
+- title: Running unit tests in RxODE
+  contents:
+  - rxValidate
+- title: Internal functions
+  contents:
+  - coef.RxODE
+  - .rxFindPow
+  - .rxRmPrint
+  - .rxRmSens
+  - .rxSymPyJacobian
+  - .rxWinRtoolsPath
+  - is.rxEt
+  - is.rxSolve
+  - print.RxODE
+  - print.rxCoefSolve
+  - rxAddReturn
+  - rxAssignPtr
+  - rxChain
+  - rxCompile
+  - rxCores
+  - rxDelete
+  - rxDfdy
+  - rxFoExpandEta
+  - rxGetRxODE
+  - rxHtml
+  - rxInv
+  - rxIsCurrent
+  - rxLhs
+  - rxNorm
+  - rxOptions
+  - rxParams
+  - rxPermissive
+  - rxProgress
+  - rxSimThetaOmega
+  - rxStack
+  - rxState
+  - rxSymInvChol
+  - rxSymPyFix
+  - rxSymPySensitivity
+  - rxSymPyVersion
+  - rxSyncOptions
+  - rxTrans
+  - rxWinPythonSetup
+  - rxWinSetup
+  - summary.RxODE
+  - tibble
 navbar:
   left:
   - text: Articles
@@ -12,8 +98,10 @@ navbar:
           href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-intro.html
         - text: "RxODE mini language syntax"
           href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-syntax.html
+        - text: "RxODE with piping ie %>%"
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-pipeline.html
         - text: "Speeding up RxODE ODE solving"
-          href: articles/RxODE-speed.html
+          href: articles/speed.html
         - text: "--------------------------"
         - text: "Advanced Features, Model Types, Technical Details"
         - text: "RxODE model types"
@@ -31,22 +119,26 @@ navbar:
         - text: "Adding compiled RxODE models to your package"
           href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-rxUse.html
   - text: "Dosing"
-    icon: fa-pills
+    icon: fas fa-stethoscope
     href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-events.html
   - text: "Simulations"
-    icon: fa-laptop-medical
+    icon: fas fa-desktop
     menu:
         - text: "Single Subject ODE solving"
         - text: "Multiple Subject RxODE Simulation"
-          href: articles/RxODE-sim-var.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-sim-var.html
         - text: "Using Prior Data for ODE solving"
   - text: "Tutorial"
-    icon: fa-life-ring
+    icon: fas fa-life-ring
     href: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4728294/pdf/PSP4-5-03.pdf
   - text: "Functions"
     icon: fa-file-code-o
     href: https://nlmixrdevelopment.github.io/RxODE/reference/index.html
   right:
+  - icon: fas fa-archive
+    menu:
+      - text: nlmixr
+        href: https://nlmixrdevelopment.github.io/nlmixr/
   - icon: fa-github fa-lg
     href: https://github.com/nlmixrdevelopment/RxODE
   - icon: fa-download
