@@ -63,7 +63,7 @@
       <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-pipeline.html">RxODE with piping ie %&gt;%</a>
     </li>
     <li>
-      <a href="../articles/speed.html">Speeding up RxODE ODE solving</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/speed.html">Speeding up RxODE ODE solving</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Advanced Features, Model Types, Technical Details</li>
@@ -265,16 +265,16 @@ params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">runFor</span>(), <span class="kw">runSapply</span>(), <span class="kw">runSingleThread</span>(),<span class="kw">run2Thread</span>())
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;               expr       min        lq       mean    median         uq</span>
-<span class="co">#&gt;           runFor() 584.20764 768.80366 1047.25242 916.90128 1177.51763</span>
-<span class="co">#&gt;        runSapply() 461.47029 704.58926  918.38560 837.00595 1013.59695</span>
-<span class="co">#&gt;  runSingleThread()  52.92321  83.06280  108.68827 105.52223  118.33512</span>
-<span class="co">#&gt;       run2Thread()  29.63755  55.01344   67.66035  64.11957   75.55177</span>
+<span class="co">#&gt;               expr       min        lq      mean    median        uq</span>
+<span class="co">#&gt;           runFor() 448.34971 626.18618 756.99616 699.01808 834.87691</span>
+<span class="co">#&gt;        runSapply() 432.57261 621.51865 843.37054 763.81327 979.31128</span>
+<span class="co">#&gt;  runSingleThread()  48.42414  65.65132  85.91035  80.02943 101.33776</span>
+<span class="co">#&gt;       run2Thread()  28.76202  45.34994  55.92237  53.60352  62.34016</span>
 <span class="co">#&gt;        max neval</span>
-<span class="co">#&gt;  4602.4663   100</span>
-<span class="co">#&gt;  2405.0744   100</span>
-<span class="co">#&gt;   428.7331   100</span>
-<span class="co">#&gt;   182.2110   100</span></code></pre></div>
+<span class="co">#&gt;  1498.5762   100</span>
+<span class="co">#&gt;  3543.4469   100</span>
+<span class="co">#&gt;   152.5909   100</span>
+<span class="co">#&gt;   122.6878   100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>It is clear that the <strong>largest</strong> jump in performance when using the <code>solve</code> method and providing <em>all</em> the parameters to RxODE to solve without looping over each subject with either a <code>for</code> or a <code>sapply</code>. The number of cores/threads applied to the solve also plays a role in the solving.</p>
@@ -288,16 +288,11 @@ bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocum
                                            <span class="dt">collapse=</span><span class="st">","</span>))))
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;          expr      min       lq      mean    median        uq      max</span>
-<span class="co">#&gt;  runThread(1) 52.13737 84.19582 109.19629 107.13296 130.99272 227.7917</span>
-<span class="co">#&gt;  runThread(2) 32.59528 49.96080  67.62228  63.70233  81.01697 166.5741</span>
-<span class="co">#&gt;  runThread(3) 32.65062 43.95006  59.26460  55.27516  69.67804 169.7723</span>
-<span class="co">#&gt;  runThread(4) 27.08457 36.13715  51.62323  48.98619  61.15827 136.8923</span>
-<span class="co">#&gt;  neval</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span></code></pre></div>
+<span class="co">#&gt;          expr      min       lq     mean   median        uq      max neval</span>
+<span class="co">#&gt;  runThread(1) 47.71505 65.76333 95.83954 80.84717 116.62443 266.7491   100</span>
+<span class="co">#&gt;  runThread(2) 28.28765 41.77237 57.30371 50.34479  63.00061 189.8401   100</span>
+<span class="co">#&gt;  runThread(3) 28.62814 39.33586 50.63909 44.82560  57.36450 162.4391   100</span>
+<span class="co">#&gt;  runThread(4) 25.30627 31.06800 48.76563 42.43416  60.12989 175.0720   100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>There is a suite spot in speed vs number or cores. The system type, complexity of the ODE solving and the number of subjects may affect this arbitrary number of threads. 4 threads is a good number to use without any prior knowledge because most systems these days have at least 4 threads (or 2 processors with 4 threads).</p>

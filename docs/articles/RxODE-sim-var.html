@@ -63,7 +63,7 @@
       <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-pipeline.html">RxODE with piping ie %&gt;%</a>
     </li>
     <li>
-      <a href="../articles/speed.html">Speeding up RxODE ODE solving</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/speed.html">Speeding up RxODE ODE solving</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Advanced Features, Model Types, Technical Details</li>
@@ -292,12 +292,12 @@ s &lt;-sim <span class="op">%&gt;%</span><span class="st"> </span><span class="k
 <p>Note that you can see the parameters that were simulated for the example</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sim<span class="op">$</span>param)
 <span class="co">#&gt;   sim.id   V2 prop.err  V3  TCl      eta.Cl    KA    Q Kin Kout EC50</span>
-<span class="co">#&gt; 1      1 40.2        0 297 18.6 -0.44378468 0.294 10.5   1    1  200</span>
-<span class="co">#&gt; 2      2 40.2        0 297 18.6  0.08028425 0.294 10.5   1    1  200</span>
-<span class="co">#&gt; 3      3 40.2        0 297 18.6  0.56368427 0.294 10.5   1    1  200</span>
-<span class="co">#&gt; 4      4 40.2        0 297 18.6 -0.40311693 0.294 10.5   1    1  200</span>
-<span class="co">#&gt; 5      5 40.2        0 297 18.6  0.08052785 0.294 10.5   1    1  200</span>
-<span class="co">#&gt; 6      6 40.2        0 297 18.6  0.06417342 0.294 10.5   1    1  200</span></code></pre></div>
+<span class="co">#&gt; 1      1 40.2        0 297 18.6 -0.93989155 0.294 10.5   1    1  200</span>
+<span class="co">#&gt; 2      2 40.2        0 297 18.6  0.47153079 0.294 10.5   1    1  200</span>
+<span class="co">#&gt; 3      3 40.2        0 297 18.6  0.62126036 0.294 10.5   1    1  200</span>
+<span class="co">#&gt; 4      4 40.2        0 297 18.6 -0.47406088 0.294 10.5   1    1  200</span>
+<span class="co">#&gt; 5      5 40.2        0 297 18.6  0.02213663 0.294 10.5   1    1  200</span>
+<span class="co">#&gt; 6      6 40.2        0 297 18.6  0.29014307 0.294 10.5   1    1  200</span></code></pre></div>
 </div>
 <div id="simulation-of-unexplained-variability" class="section level3">
 <h3 class="hasAnchor">
@@ -356,25 +356,25 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumen
 sim  &lt;-<span class="st"> </span><span class="kw">rxSolve</span>(mod, theta, dat, <span class="dt">omega=</span>omega, <span class="dt">sigma=</span>sigma)
 
 sim <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(id, time, e, cp)
-<span class="co">#&gt;    id          time         e          cp</span>
-<span class="co">#&gt; 1   1  0.000000 [h] 0.9579106 10113.37582</span>
-<span class="co">#&gt; 2   1  5.333333 [h] 1.2355987   389.94853</span>
-<span class="co">#&gt; 3   1 10.666667 [h] 0.8857576   112.76544</span>
-<span class="co">#&gt; 4   1 16.000000 [h] 0.7206149   194.04037</span>
-<span class="co">#&gt; 5   1 21.333333 [h] 1.1614892   142.42067</span>
-<span class="co">#&gt; 6   1 26.666667 [h] 1.2045094   169.30676</span>
-<span class="co">#&gt; 7   1 32.000000 [h] 0.7828081   184.59318</span>
-<span class="co">#&gt; 8   1 37.333333 [h] 0.7415160   171.36247</span>
-<span class="co">#&gt; 9   1 42.666667 [h] 1.3704419   111.58701</span>
-<span class="co">#&gt; 10  1 48.000000 [h] 1.3143011   100.29217</span>
-<span class="co">#&gt; 11  2  0.000000 [h] 1.2051766   938.25394</span>
-<span class="co">#&gt; 12  2  6.857143 [h] 1.4497490   207.32017</span>
-<span class="co">#&gt; 13  2 13.714286 [h] 1.0149645   105.91117</span>
-<span class="co">#&gt; 14  2 20.571429 [h] 1.6602476   109.62846</span>
-<span class="co">#&gt; 15  2 27.428571 [h] 0.6084772    31.13311</span>
-<span class="co">#&gt; 16  2 34.285714 [h] 1.2883383    38.19640</span>
-<span class="co">#&gt; 17  2 41.142857 [h] 1.1251433    66.32220</span>
-<span class="co">#&gt; 18  2 48.000000 [h] 1.2219987    47.15960</span></code></pre></div>
+<span class="co">#&gt;    id          time         e         cp</span>
+<span class="co">#&gt; 1   1  0.000000 [h] 0.6464624 3721.95162</span>
+<span class="co">#&gt; 2   1  5.333333 [h] 1.0209052  170.17126</span>
+<span class="co">#&gt; 3   1 10.666667 [h] 0.8589937   66.12528</span>
+<span class="co">#&gt; 4   1 16.000000 [h] 0.9317105   65.93450</span>
+<span class="co">#&gt; 5   1 21.333333 [h] 0.7707185   54.96598</span>
+<span class="co">#&gt; 6   1 26.666667 [h] 1.2584694   43.08445</span>
+<span class="co">#&gt; 7   1 32.000000 [h] 1.0477408   32.72645</span>
+<span class="co">#&gt; 8   1 37.333333 [h] 0.6739108   40.50157</span>
+<span class="co">#&gt; 9   1 42.666667 [h] 0.8269808   37.16707</span>
+<span class="co">#&gt; 10  1 48.000000 [h] 1.2834714   19.51950</span>
+<span class="co">#&gt; 11  2  0.000000 [h] 0.5102074 4485.42730</span>
+<span class="co">#&gt; 12  2  6.857143 [h] 0.8943512  134.67063</span>
+<span class="co">#&gt; 13  2 13.714286 [h] 1.1035428   87.69017</span>
+<span class="co">#&gt; 14  2 20.571429 [h] 0.7811538   68.93875</span>
+<span class="co">#&gt; 15  2 27.428571 [h] 0.9287556   47.62061</span>
+<span class="co">#&gt; 16  2 34.285714 [h] 0.9262346   38.76835</span>
+<span class="co">#&gt; 17  2 41.142857 [h] 1.1036551   26.76642</span>
+<span class="co">#&gt; 18  2 48.000000 [h] 0.8071392   18.19378</span></code></pre></div>
 <div id="simulation-of-clinical-trials" class="section level4">
 <h4 class="hasAnchor">
 <a href="#simulation-of-clinical-trials" class="anchor"></a>Simulation of Clinical Trials</h4>
@@ -407,57 +407,57 @@ s &lt;-sim <span class="op">%&gt;%</span><span class="st"> </span><span class="k
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sim<span class="op">$</span>omega.list)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.1433364</span>
+<span class="co">#&gt; [1,] 0.1029364</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.1801364</span>
+<span class="co">#&gt; [1,] 0.2395337</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
 <span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.5087348</span>
+<span class="co">#&gt; [1,] 0.2131807</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
 <span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.3778501</span>
+<span class="co">#&gt; [1,] 0.1249155</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[5]]</span>
 <span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.2418701</span>
+<span class="co">#&gt; [1,] 0.3364744</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[6]]</span>
 <span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.1243837</span></code></pre></div>
+<span class="co">#&gt; [1,] 0.2299501</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sim<span class="op">$</span>sigma.list)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;            [,1]       [,2]</span>
-<span class="co">#&gt; [1,] 0.13264689 0.03626945</span>
-<span class="co">#&gt; [2,] 0.03626945 0.11503773</span>
+<span class="co">#&gt; [1,] 0.09598519 0.01043633</span>
+<span class="co">#&gt; [2,] 0.01043633 0.12764028</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt;              [,1]         [,2]</span>
-<span class="co">#&gt; [1,]  0.105058632 -0.003856742</span>
-<span class="co">#&gt; [2,] -0.003856742  0.130408285</span>
+<span class="co">#&gt;             [,1]        [,2]</span>
+<span class="co">#&gt; [1,]  0.08805309 -0.01480641</span>
+<span class="co">#&gt; [2,] -0.01480641  0.08235172</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
 <span class="co">#&gt;              [,1]         [,2]</span>
-<span class="co">#&gt; [1,]  0.102358281 -0.002326019</span>
-<span class="co">#&gt; [2,] -0.002326019  0.105726791</span>
+<span class="co">#&gt; [1,]  0.097371228 -0.007235554</span>
+<span class="co">#&gt; [2,] -0.007235554  0.082644965</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
 <span class="co">#&gt;             [,1]        [,2]</span>
-<span class="co">#&gt; [1,]  0.11820390 -0.02335237</span>
-<span class="co">#&gt; [2,] -0.02335237  0.11182497</span>
+<span class="co">#&gt; [1,] 0.094364448 0.008169488</span>
+<span class="co">#&gt; [2,] 0.008169488 0.113188616</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[5]]</span>
-<span class="co">#&gt;             [,1]        [,2]</span>
-<span class="co">#&gt; [1,]  0.11828852 -0.00581814</span>
-<span class="co">#&gt; [2,] -0.00581814  0.08187362</span>
+<span class="co">#&gt;              [,1]         [,2]</span>
+<span class="co">#&gt; [1,]  0.095081186 -0.008883501</span>
+<span class="co">#&gt; [2,] -0.008883501  0.077693469</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[6]]</span>
-<span class="co">#&gt;             [,1]        [,2]</span>
-<span class="co">#&gt; [1,] 0.102638995 0.007738324</span>
-<span class="co">#&gt; [2,] 0.007738324 0.099927449</span></code></pre></div>
+<span class="co">#&gt;            [,1]        [,2]</span>
+<span class="co">#&gt; [1,]  0.1059338 -0.01287220</span>
+<span class="co">#&gt; [2,] -0.0128722  0.09175521</span></code></pre></div>
 <p>You can also see the parameter realizations from the <code>$params</code> data frame.</p>
 <p>If you do not wish to sample from the prior distributions of either the <code>omega</code> or <code>sigma</code> matrices, you can turn off this feature by specifying the <code>simVariability = FALSE</code> option when solving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim  &lt;-<span class="st"> </span><span class="kw">rxSolve</span>(mod, theta, ev, <span class="dt">omega=</span>omega, <span class="dt">nSub=</span><span class="dv">100</span>, <span class="dt">sigma=</span>sigma, <span class="dt">thetaMat=</span>tMat, <span class="dt">nStud=</span><span class="dv">10</span>,
