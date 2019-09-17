@@ -25,8 +25,8 @@ htmltools::img(src = knitr::image_uri("logo.png"),
 ## Simulation of Variability with RxODE
 
 In pharmacometrics the nonlinear-mixed effect modeling software (like
-nlmixr) characterizes the between-subject varaibility.  With this
-between subject varibility you can simulate new subjects.
+nlmixr) characterizes the between-subject variability.  With this
+between subject variability you can simulate new subjects.
 
 Assuming that you have a 2-compartment, indirect response model, you
 can set create an RxODE model describing this system below:
@@ -213,13 +213,6 @@ individuals in a clinical trial.  To do this you will have to create a
 data.frame using the `RxODE` event specification as well as an `ID`
 column to indicate an individual. The RxODE event vignette talks more about
 how these datasets should be created.
-
-If you have a NONMEM/Monlix dataset and the package
-`nlmixr`, you can convert the `NONMEM`` dataset to a `RxODE` compatible dataset to
-use for simulation with the `nmDataConvert` function.
-
-Instead of using nlmixr for this simple example, I will combine two
-RxODE event tables.
 
 ```{r}
 

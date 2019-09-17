@@ -164,9 +164,9 @@ well as adding as a `thetaMat` to R to simulate with uncertainty in the
 vignette](https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-sim-var.html).
 
 
-## sessionInfo
+## Session Information
 
-The session information for benchmarking.
+The session information:
 ```{r}
 sessionInfo()
 ```
