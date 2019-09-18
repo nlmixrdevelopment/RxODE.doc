@@ -107,12 +107,14 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-single-subject.html">Single Subject ODE solving</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/rxode-single-subject.html">Single Subject ODE solving</a>
     </li>
     <li>
       <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-sim-var.html">Multiple Subject RxODE Simulation</a>
     </li>
-    <li class="dropdown-header">Using Prior Data for ODE solving</li>
+    <li>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-prior-data.html">Using Prior Data for ODE solving</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -263,15 +265,15 @@ params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;               expr       min        lq      mean    median        uq</span>
-<span class="co">#&gt;           runFor() 156.60984 163.21596 168.88643 165.88840 169.41585</span>
-<span class="co">#&gt;        runSapply() 155.62966 161.62281 166.64359 164.64744 168.19696</span>
-<span class="co">#&gt;  runSingleThread()  22.77057  24.19888  26.03352  26.79937  27.62924</span>
-<span class="co">#&gt;       run2Thread()  12.84143  13.59835  14.92278  13.89325  14.40610</span>
+<span class="co">#&gt;           runFor() 159.54051 165.31230 175.50899 169.80000 176.37297</span>
+<span class="co">#&gt;        runSapply() 156.13497 163.43590 173.46975 168.24609 175.28257</span>
+<span class="co">#&gt;  runSingleThread()  22.81748  25.05598  26.72766  26.58529  28.26282</span>
+<span class="co">#&gt;       run2Thread()  13.33058  13.99459  15.66564  14.23871  15.02682</span>
 <span class="co">#&gt;        max neval</span>
-<span class="co">#&gt;  222.00680   100</span>
-<span class="co">#&gt;  212.60378   100</span>
-<span class="co">#&gt;   31.47903   100</span>
-<span class="co">#&gt;   24.86860   100</span></code></pre></div>
+<span class="co">#&gt;  263.34857   100</span>
+<span class="co">#&gt;  307.16646   100</span>
+<span class="co">#&gt;   33.91813   100</span>
+<span class="co">#&gt;   26.94179   100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>It is clear that the <strong>largest</strong> jump in performance when using the <code>solve</code> method and providing <em>all</em> the parameters to RxODE to solve without looping over each subject with either a <code>for</code> or a <code>sapply</code>. The number of cores/threads applied to the solve also plays a role in the solving.</p>
@@ -286,18 +288,18 @@ bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocum
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;           expr       min        lq     mean   median       uq      max</span>
-<span class="co">#&gt;   runThread(1) 22.724293 24.662408 28.00473 26.37738 29.74891 43.46057</span>
-<span class="co">#&gt;   runThread(2) 12.904059 13.844819 16.67738 14.88489 18.45214 27.22734</span>
-<span class="co">#&gt;   runThread(3) 10.178467 11.159814 13.61586 12.61528 15.27065 22.70593</span>
-<span class="co">#&gt;   runThread(4)  9.289086 10.441511 13.77315 12.05476 16.49884 26.20847</span>
-<span class="co">#&gt;   runThread(5)  8.286723  9.661418 12.37161 10.90519 14.34310 21.21531</span>
-<span class="co">#&gt;   runThread(6)  7.958701  8.830697 12.83863 10.59800 15.17836 30.50273</span>
-<span class="co">#&gt;   runThread(7) 10.017018 11.270968 14.22066 12.08321 16.29115 28.04328</span>
-<span class="co">#&gt;   runThread(8)  9.393729 10.835258 13.04892 11.69694 13.56937 29.40983</span>
-<span class="co">#&gt;   runThread(9)  9.350593 10.583047 12.96255 11.50771 14.37825 23.89286</span>
-<span class="co">#&gt;  runThread(10)  9.075859 10.643823 13.82299 11.83596 15.60314 27.38260</span>
-<span class="co">#&gt;  runThread(11)  8.896011 10.526345 14.97767 13.16521 16.59990 35.80608</span>
-<span class="co">#&gt;  runThread(12)  8.886038 10.781746 15.96923 14.26619 19.41466 37.70501</span>
+<span class="co">#&gt;   runThread(1) 22.636311 24.546019 28.25961 27.16795 30.37356 41.92634</span>
+<span class="co">#&gt;   runThread(2) 12.679673 13.417459 16.27507 15.07836 17.85463 26.94940</span>
+<span class="co">#&gt;   runThread(3) 10.194365 10.714206 13.02969 11.39900 14.36818 23.60918</span>
+<span class="co">#&gt;   runThread(4)  8.979798 10.018772 13.89268 12.16325 16.94003 25.59404</span>
+<span class="co">#&gt;   runThread(5)  8.318845  9.180219 12.12688 10.79240 14.46712 24.02233</span>
+<span class="co">#&gt;   runThread(6)  7.818366  8.817367 12.24657 10.76990 13.80119 25.77846</span>
+<span class="co">#&gt;   runThread(7)  9.907870 11.063299 14.53271 11.75142 17.24158 26.34251</span>
+<span class="co">#&gt;   runThread(8)  9.287021 10.331373 13.39768 11.20966 15.38919 27.65891</span>
+<span class="co">#&gt;   runThread(9)  8.880415 10.283670 13.58409 11.72318 15.37063 26.88270</span>
+<span class="co">#&gt;  runThread(10)  8.602142 10.135601 13.72574 11.28536 16.04193 27.64240</span>
+<span class="co">#&gt;  runThread(11)  8.580987 10.110121 13.76621 11.88230 15.97596 28.66226</span>
+<span class="co">#&gt;  runThread(12)  9.040889 10.442490 14.59600 12.75241 19.79884 32.20088</span>
 <span class="co">#&gt;  neval</span>
 <span class="co">#&gt;    100</span>
 <span class="co">#&gt;    100</span>
