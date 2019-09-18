@@ -125,6 +125,7 @@ navbar:
     icon: fas fa-desktop
     menu:
         - text: "Single Subject ODE solving"
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-single-subject.html
         - text: "Multiple Subject RxODE Simulation"
           href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-sim-var.html
         - text: "Using Prior Data for ODE solving"

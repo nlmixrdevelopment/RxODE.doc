@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RxODE.doc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.7</span>
       </span>
     </div>
 
@@ -106,7 +106,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Single Subject ODE solving</li>
+<li>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-single-subject.html">Single Subject ODE solving</a>
+    </li>
     <li>
       <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-sim-var.html">Multiple Subject RxODE Simulation</a>
     </li>
@@ -169,7 +171,7 @@
       <h1>Speeding up RxODE</h1>
                         <h4 class="author">Matthew Fidler</h4>
             
-            <h4 class="date">2019-05-30</h4>
+            <h4 class="date">2019-09-17</h4>
       
       
       <div class="hidden name"><code>RxODE-speed.Rmd</code></div>
@@ -185,15 +187,10 @@
 <p>The original code from the <code>RxODE</code> tutorial is below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RxODE)
-<span class="co">#&gt; Registered S3 methods overwritten by 'ggplot2':</span>
-<span class="co">#&gt;   method         from </span>
-<span class="co">#&gt;   [.quosures     rlang</span>
-<span class="co">#&gt;   c.quosures     rlang</span>
-<span class="co">#&gt;   print.quosures rlang</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(microbenchmark)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(mvnfast)
 
-mod1 &lt;-<span class="st"> </span><span class="kw">RxODE</span>({
+mod1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/RxODE">RxODE</a></span>({
     C2 =<span class="st"> </span>centr<span class="op">/</span>V2;
     C3 =<span class="st"> </span>peri<span class="op">/</span>V3;
     d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(depot) =<span class="st"> </span><span class="op">-</span>KA<span class="op">*</span>depot;
@@ -205,14 +202,14 @@ mod1 &lt;-<span class="st"> </span><span class="kw">RxODE</span>({
 
 ## Create an event table
 
-ev &lt;-<span class="st"> </span><span class="kw">et</span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">et</span>(<span class="dt">amt=</span><span class="dv">10000</span>, <span class="dt">addl=</span><span class="dv">9</span>,<span class="dt">ii=</span><span class="dv">12</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">et</span>(<span class="dt">time=</span><span class="dv">120</span>, <span class="dt">amt=</span><span class="dv">20000</span>, <span class="dt">addl=</span><span class="dv">4</span>, <span class="dt">ii=</span><span class="dv">24</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">et</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">240</span>) ## Add Sampling
+ev &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="dt">amt=</span><span class="dv">10000</span>, <span class="dt">addl=</span><span class="dv">9</span>,<span class="dt">ii=</span><span class="dv">12</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="dt">time=</span><span class="dv">120</span>, <span class="dt">amt=</span><span class="dv">20000</span>, <span class="dt">addl=</span><span class="dv">4</span>, <span class="dt">ii=</span><span class="dv">24</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">240</span>) ## Add Sampling
 
 nsub &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># 100 subproblems</span>
 sigma &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.09</span>,<span class="fl">0.08</span>,<span class="fl">0.08</span>,<span class="fl">0.25</span>),<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># IIV covariance matrix</span>
-mv &lt;-<span class="st"> </span><span class="kw">rmvn</span>(<span class="dt">n=</span>nsub, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">0</span>,<span class="dv">2</span>), sigma) <span class="co"># Sample from covariance matrix</span>
+mv &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/mvnfast/topics/rmvn">rmvn</a></span>(<span class="dt">n=</span>nsub, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">0</span>,<span class="dv">2</span>), sigma) <span class="co"># Sample from covariance matrix</span>
 CL &lt;-<span class="st"> </span><span class="dv">7</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(mv[,<span class="dv">1</span>])
 V2 &lt;-<span class="st"> </span><span class="dv">40</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(mv[,<span class="dv">2</span>])
 params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(<span class="dt">KA=</span><span class="fl">0.3</span>, <span class="dt">CL=</span>CL, <span class="dt">V2=</span>V2, <span class="dt">Q=</span><span class="dv">10</span>, <span class="dt">V3=</span><span class="dv">300</span>,
@@ -253,7 +250,7 @@ params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <div id="run-a-2-threaded-solve" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-a-2-threaded-solve" class="anchor"></a>Run a 2 threaded solve</h2>
-<p>RxODE supports multi-threaded solves, so another option is to have <code>2</code> threads (called <code>cores</code> in the solve options, you can see the options in <code>rxControl()</code> or <code>rxSolve()</code>).</p>
+<p>RxODE supports multi-threaded solves, so another option is to have <code>2</code> threads (called <code>cores</code> in the solve options, you can see the options in <code><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxSolve">rxControl()</a></code> or <code><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxSolve">rxSolve()</a></code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">run2Thread &lt;-<span class="st"> </span><span class="cf">function</span>(){
     <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(mod1, params.all, ev, <span class="dt">cores=</span><span class="dv">2</span>)[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"sim.id"</span>, <span class="st">"time"</span>, <span class="st">"eff"</span>)]
 }</code></pre></div>
@@ -262,19 +259,19 @@ params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <h2 class="hasAnchor">
 <a href="#compare-the-times-between-all-the-methods" class="anchor"></a>Compare the times between all the methods</h2>
 <p>Now the moment of truth, the timings:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="kw">runFor</span>(), <span class="kw">runSapply</span>(), <span class="kw">runSingleThread</span>(),<span class="kw">run2Thread</span>())
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw">runFor</span>(), <span class="kw">runSapply</span>(), <span class="kw">runSingleThread</span>(),<span class="kw">run2Thread</span>())
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;               expr       min        lq      mean    median        uq</span>
-<span class="co">#&gt;           runFor() 448.34971 626.18618 756.99616 699.01808 834.87691</span>
-<span class="co">#&gt;        runSapply() 432.57261 621.51865 843.37054 763.81327 979.31128</span>
-<span class="co">#&gt;  runSingleThread()  48.42414  65.65132  85.91035  80.02943 101.33776</span>
-<span class="co">#&gt;       run2Thread()  28.76202  45.34994  55.92237  53.60352  62.34016</span>
+<span class="co">#&gt;           runFor() 156.60984 163.21596 168.88643 165.88840 169.41585</span>
+<span class="co">#&gt;        runSapply() 155.62966 161.62281 166.64359 164.64744 168.19696</span>
+<span class="co">#&gt;  runSingleThread()  22.77057  24.19888  26.03352  26.79937  27.62924</span>
+<span class="co">#&gt;       run2Thread()  12.84143  13.59835  14.92278  13.89325  14.40610</span>
 <span class="co">#&gt;        max neval</span>
-<span class="co">#&gt;  1498.5762   100</span>
-<span class="co">#&gt;  3543.4469   100</span>
-<span class="co">#&gt;   152.5909   100</span>
-<span class="co">#&gt;   122.6878   100</span></code></pre></div>
+<span class="co">#&gt;  222.00680   100</span>
+<span class="co">#&gt;  212.60378   100</span>
+<span class="co">#&gt;   31.47903   100</span>
+<span class="co">#&gt;   24.86860   100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>It is clear that the <strong>largest</strong> jump in performance when using the <code>solve</code> method and providing <em>all</em> the parameters to RxODE to solve without looping over each subject with either a <code>for</code> or a <code>sapply</code>. The number of cores/threads applied to the solve also plays a role in the solving.</p>
@@ -284,15 +281,36 @@ params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 }
 
 bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/eval">eval</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>(<span class="dt">text=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"microbenchmark(%s)"</span>,
-                                     <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"runThread("</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="kw">rxCores</span>()),<span class="st">")"</span>),
+                                     <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"runThread("</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxCores">rxCores</a></span>()),<span class="st">")"</span>),
                                            <span class="dt">collapse=</span><span class="st">","</span>))))
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;          expr      min       lq     mean   median        uq      max neval</span>
-<span class="co">#&gt;  runThread(1) 47.71505 65.76333 95.83954 80.84717 116.62443 266.7491   100</span>
-<span class="co">#&gt;  runThread(2) 28.28765 41.77237 57.30371 50.34479  63.00061 189.8401   100</span>
-<span class="co">#&gt;  runThread(3) 28.62814 39.33586 50.63909 44.82560  57.36450 162.4391   100</span>
-<span class="co">#&gt;  runThread(4) 25.30627 31.06800 48.76563 42.43416  60.12989 175.0720   100</span></code></pre></div>
+<span class="co">#&gt;           expr       min        lq     mean   median       uq      max</span>
+<span class="co">#&gt;   runThread(1) 22.724293 24.662408 28.00473 26.37738 29.74891 43.46057</span>
+<span class="co">#&gt;   runThread(2) 12.904059 13.844819 16.67738 14.88489 18.45214 27.22734</span>
+<span class="co">#&gt;   runThread(3) 10.178467 11.159814 13.61586 12.61528 15.27065 22.70593</span>
+<span class="co">#&gt;   runThread(4)  9.289086 10.441511 13.77315 12.05476 16.49884 26.20847</span>
+<span class="co">#&gt;   runThread(5)  8.286723  9.661418 12.37161 10.90519 14.34310 21.21531</span>
+<span class="co">#&gt;   runThread(6)  7.958701  8.830697 12.83863 10.59800 15.17836 30.50273</span>
+<span class="co">#&gt;   runThread(7) 10.017018 11.270968 14.22066 12.08321 16.29115 28.04328</span>
+<span class="co">#&gt;   runThread(8)  9.393729 10.835258 13.04892 11.69694 13.56937 29.40983</span>
+<span class="co">#&gt;   runThread(9)  9.350593 10.583047 12.96255 11.50771 14.37825 23.89286</span>
+<span class="co">#&gt;  runThread(10)  9.075859 10.643823 13.82299 11.83596 15.60314 27.38260</span>
+<span class="co">#&gt;  runThread(11)  8.896011 10.526345 14.97767 13.16521 16.59990 35.80608</span>
+<span class="co">#&gt;  runThread(12)  8.886038 10.781746 15.96923 14.26619 19.41466 37.70501</span>
+<span class="co">#&gt;  neval</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span>
+<span class="co">#&gt;    100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>There is a suite spot in speed vs number or cores. The system type, complexity of the ODE solving and the number of subjects may affect this arbitrary number of threads. 4 threads is a good number to use without any prior knowledge because most systems these days have at least 4 threads (or 2 processors with 4 threads).</p>
@@ -300,47 +318,49 @@ bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocum
 <div id="want-more-ways-to-run-multi-subject-simulations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#want-more-ways-to-run-multi-subject-simulations" class="anchor"></a>Want more ways to run multi-subject simulations</h2>
-<p>The version since the tutorial has even more ways to run multi-subject simulations, including adding variability in sampling and dosing times with <code>et()</code> (see <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-events.html#add-doses-and-samples-within-a-sampling-window">RxODE events</a> for more information), ability to supply both an <code>omega</code> and <code>sigma</code> matrix as well as adding as a <code>thetaMat</code> to R to simulate with uncertainty in the <code>omega</code>, <code>sigma</code> and <code>theta</code> matrices; see <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-sim-var.html">RxODE simulation vignette</a>.</p>
+<p>The version since the tutorial has even more ways to run multi-subject simulations, including adding variability in sampling and dosing times with <code><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et()</a></code> (see <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-events.html#add-doses-and-samples-within-a-sampling-window">RxODE events</a> for more information), ability to supply both an <code>omega</code> and <code>sigma</code> matrix as well as adding as a <code>thetaMat</code> to R to simulate with uncertainty in the <code>omega</code>, <code>sigma</code> and <code>theta</code> matrices; see <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-sim-var.html">RxODE simulation vignette</a>.</p>
 </div>
-<div id="sessioninfo" class="section level2">
+<div id="session-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#sessioninfo" class="anchor"></a>sessionInfo</h2>
-<p>The session information for benchmarking.</p>
+<a href="#session-information" class="anchor"></a>Session Information</h2>
+<p>The session information:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/sessionInfo">sessionInfo</a></span>()
 <span class="co">#&gt; R version 3.6.0 (2019-04-26)</span>
-<span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span>
-<span class="co">#&gt; Running under: Windows 10 x64 (build 16299)</span>
+<span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
+<span class="co">#&gt; Running under: Gentoo/Linux</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Matrix products: default</span>
+<span class="co">#&gt; BLAS:   /usr/lib64/blas/reference/libblas.so.0.0.0</span>
+<span class="co">#&gt; LAPACK: /usr/lib64/lapack/reference/liblapack.so.0.0.0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; locale:</span>
-<span class="co">#&gt; [1] LC_COLLATE=English_United States.1252 </span>
-<span class="co">#&gt; [2] LC_CTYPE=English_United States.1252   </span>
-<span class="co">#&gt; [3] LC_MONETARY=English_United States.1252</span>
-<span class="co">#&gt; [4] LC_NUMERIC=C                          </span>
-<span class="co">#&gt; [5] LC_TIME=English_United States.1252    </span>
+<span class="co">#&gt;  [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C             </span>
+<span class="co">#&gt;  [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8    </span>
+<span class="co">#&gt;  [5] LC_MONETARY=en_US.utf8    LC_MESSAGES=en_US.utf8   </span>
+<span class="co">#&gt;  [7] LC_PAPER=en_US.utf8       LC_NAME=C                </span>
+<span class="co">#&gt;  [9] LC_ADDRESS=C              LC_TELEPHONE=C           </span>
+<span class="co">#&gt; [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C      </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attached base packages:</span>
 <span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt; [1] mvnfast_0.2.5        microbenchmark_1.4-6 RxODE_0.9.0-6       </span>
+<span class="co">#&gt; [1] mvnfast_0.2.5        microbenchmark_1.4-6 RxODE_0.9.1-7       </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] Rcpp_1.0.1       compiler_3.6.0   pillar_1.4.1     plyr_1.8.4      </span>
-<span class="co">#&gt;  [5] PreciseSums_0.3  tools_3.6.0      digest_0.6.19    evaluate_0.14   </span>
-<span class="co">#&gt;  [9] memoise_1.1.0    tibble_2.1.2     gtable_0.3.0     pkgconfig_2.0.2 </span>
-<span class="co">#&gt; [13] rlang_0.3.4      rex_1.1.2        commonmark_1.7   yaml_2.2.0      </span>
-<span class="co">#&gt; [17] pkgdown_1.3.0    xfun_0.7         stringr_1.4.0    dplyr_0.8.1     </span>
-<span class="co">#&gt; [21] roxygen2_6.1.1   xml2_1.2.0       knitr_1.23       desc_1.2.0      </span>
-<span class="co">#&gt; [25] fs_1.3.1         tidyselect_0.2.5 rprojroot_1.3-2  grid_3.6.0      </span>
-<span class="co">#&gt; [29] glue_1.3.1       R6_2.4.0         rmarkdown_1.13   polyclip_1.10-0 </span>
-<span class="co">#&gt; [33] dparser_0.1.8    farver_1.1.0     tweenr_1.0.1     purrr_0.3.2     </span>
-<span class="co">#&gt; [37] ggplot2_3.1.1    magrittr_1.5     units_0.6-3      backports_1.1.4 </span>
-<span class="co">#&gt; [41] scales_1.0.0     htmltools_0.3.6  MASS_7.3-51.4    assertthat_0.2.1</span>
-<span class="co">#&gt; [45] mime_0.6         ggforce_0.2.2    colorspace_1.4-1 lotri_0.1.1     </span>
-<span class="co">#&gt; [49] stringi_1.4.3    lazyeval_0.2.2   munsell_0.5.0    markdown_0.9    </span>
-<span class="co">#&gt; [53] crayon_1.3.4</span></code></pre></div>
+<span class="co">#&gt;  [1] Rcpp_1.0.2       compiler_3.6.0   pillar_1.4.2     sys_3.3         </span>
+<span class="co">#&gt;  [5] PreciseSums_0.3  tools_3.6.0      digest_0.6.20    evaluate_0.14   </span>
+<span class="co">#&gt;  [9] memoise_1.1.0    tibble_2.1.3     gtable_0.3.0     pkgconfig_2.0.2 </span>
+<span class="co">#&gt; [13] rlang_0.4.0      commonmark_1.7   yaml_2.2.0       pkgdown_1.3.0   </span>
+<span class="co">#&gt; [17] xfun_0.9         stringr_1.4.0    dplyr_0.8.3      roxygen2_6.1.1  </span>
+<span class="co">#&gt; [21] xml2_1.2.2       knitr_1.24       desc_1.2.0       fs_1.3.1        </span>
+<span class="co">#&gt; [25] tidyselect_0.2.5 rprojroot_1.3-2  grid_3.6.0       glue_1.3.1      </span>
+<span class="co">#&gt; [29] R6_2.4.0         rmarkdown_1.15   polyclip_1.10-0  dparser_1.3.1-0 </span>
+<span class="co">#&gt; [33] farver_1.1.0     tweenr_1.0.1     purrr_0.3.2      ggplot2_3.2.1   </span>
+<span class="co">#&gt; [37] magrittr_1.5     units_0.6-4      backports_1.1.4  scales_1.0.0    </span>
+<span class="co">#&gt; [41] htmltools_0.3.6  MASS_7.3-51.4    assertthat_0.2.1 mime_0.7        </span>
+<span class="co">#&gt; [45] ggforce_0.3.1    colorspace_1.4-1 lotri_0.1.1      stringi_1.4.3   </span>
+<span class="co">#&gt; [49] lazyeval_0.2.2   munsell_0.5.0    markdown_1.1     crayon_1.3.4</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -358,7 +378,7 @@ bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocum
       <li><a href="#run-a-2-threaded-solve">Run a 2 threaded solve</a></li>
       <li><a href="#compare-the-times-between-all-the-methods">Compare the times between all the methods</a></li>
       <li><a href="#want-more-ways-to-run-multi-subject-simulations">Want more ways to run multi-subject simulations</a></li>
-      <li><a href="#sessioninfo">sessionInfo</a></li>
+      <li><a href="#session-information">Session Information</a></li>
       </ul>
 </li>
       </ul>
