@@ -394,8 +394,7 @@ plot(pt, q, qp, pstar) # Plot it, plotting the variables of interest
 <h1 class="hasAnchor">
 <a href="#summarizing-the-simulation-output" class="anchor"></a>Summarizing the simulation output</h1>
 <p>While it is easy to use <code>dplyr</code> and <code>data.table</code> to perform your own summary of simulations, <code>RxODE</code> also provides this ability by the <code>confint</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1089</span>)
-## This takes a little more time; Most of the time is the summary
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## This takes a little more time; Most of the time is the summary
 ## time.
 
 sim0 &lt;-<span class="st"> </span>Ribba2012 <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Use RxODE</span>
@@ -412,6 +411,70 @@ sim0 &lt;-<span class="st"> </span>Ribba2012 <span class="op">%&gt;%</span><span
 
 sim0 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>() <span class="co"># Plot the simulation intervals</span></code></pre></div>
 <p><img src="RxODE-pipeline_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div id="simulating-from-a-data-frame-of-parameters" class="section level2">
+<h2 class="hasAnchor">
+<a href="#simulating-from-a-data-frame-of-parameters" class="anchor"></a>Simulating from a data-frame of parameters</h2>
+<p>While the simulation from matrices can be very useful and a fast way to simulate information, sometimes you may want to simulate more complex scenarios. For instance, there may be some reason to believe that <code>tkde</code> needs to be above <code>tlambdap</code>, therefore these need to be simulated more carefully. You can generate the data frame in whatever way you want. The internal method of simulating the new parameters is exported too.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'dplyr'</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     filter, lag</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
+pars &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxInits">rxInits</a></span>(Ribba2012);
+pars &lt;-<span class="st"> </span>pars[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">regexpr</a></span>(<span class="st">"(prop|eta)"</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(pars)) <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>]
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(pars)
+<span class="co">#&gt;        k     tkde     tkpq    tkqpp tlambdap   tgamma tdeltaqp     tpt0 </span>
+<span class="co">#&gt; 1.00e+02 2.40e-01 2.95e-02 3.10e-03 1.21e-01 7.29e-01 8.67e-03 7.13e+00 </span>
+<span class="co">#&gt;      tq0 </span>
+<span class="co">#&gt; 4.12e+01</span>
+## This is the exported method for simulation of Theta/Omega internally in RxODE
+df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxSimThetaOmega">rxSimThetaOmega</a></span>(<span class="dt">params=</span>pars, <span class="dt">omega=</span>omega,<span class="dt">dfSub=</span><span class="dv">760</span>,
+                      <span class="dt">thetaMat=</span>thetaMat, <span class="dt">thetaLower=</span><span class="dv">0</span>, <span class="dt">nSub=</span><span class="dv">60</span>,<span class="dt">nStud=</span><span class="dv">60</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(tkde <span class="op">&gt;</span><span class="st"> </span>tlambdap) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/tbl.html">as.tbl</a></span>()
+## You could also simulate more and bind them together to a data frame.
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(df)
+<span class="co">#&gt; # A tibble: 3,120 x 16</span>
+<span class="co">#&gt;        k  tkde   tkpq  tkqpp tlambdap tgamma tdeltaqp  tpt0   tq0 eta.pt0</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4   0.845</span>
+<span class="co">#&gt;  2   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4   0.137</span>
+<span class="co">#&gt;  3   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4   0.944</span>
+<span class="co">#&gt;  4   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4  -0.977</span>
+<span class="co">#&gt;  5   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4  -0.715</span>
+<span class="co">#&gt;  6   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4  -1.14 </span>
+<span class="co">#&gt;  7   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4  -1.92 </span>
+<span class="co">#&gt;  8   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4  -0.441</span>
+<span class="co">#&gt;  9   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4   0.715</span>
+<span class="co">#&gt; 10   100 0.392 0.0295 0.0813    0.136   1.30   0.0225  7.16  42.4  -0.981</span>
+<span class="co">#&gt; # … with 3,110 more rows, and 6 more variables: eta.q0 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   eta.lambdap &lt;dbl&gt;, eta.kqp &lt;dbl&gt;, eta.qpp &lt;dbl&gt;, eta.deltaqp &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   eta.kde &lt;dbl&gt;</span>
+## Quick check to make sure that all the parameters are OK.
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all">all</a></span>(df<span class="op">$</span>tkde<span class="op">&gt;</span>df<span class="op">$</span>tlambdap)
+<span class="co">#&gt; [1] TRUE</span>
+sim1 &lt;-<span class="st"> </span>Ribba2012 <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Use RxODE</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="dt">time.units=</span><span class="st">"months"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Pipe to a new event table</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="dt">amt=</span><span class="dv">1</span>, <span class="dt">time=</span><span class="dv">50</span>, <span class="dt">until=</span><span class="dv">58</span>, <span class="dt">ii=</span><span class="fl">1.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Add dosing every 1.5 months</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="dv">0</span>, <span class="dv">250</span>, <span class="dt">by=</span><span class="fl">0.5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Add some sampling times (not required)</span>
+<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxSolve">rxSolve</a></span>(df)
+## Note this information looses information about which ID is in a
+## "study", so it summarizes the confidence intervals by dividing the
+## subjects into sqrt(#subjects) subjects and then summarizes the
+## confidence intervals
+sim2 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/confint">confint</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"pt"</span>,<span class="st">"q"</span>,<span class="st">"qp"</span>,<span class="st">"pstar"</span>),<span class="dt">level=</span><span class="fl">0.90</span>); <span class="co"># Create Simulation intervals</span>
+<span class="co">#&gt; Warning in confint.rxSolve(., c("pt", "q", "qp", "pstar"), level = 0.9): In</span>
+<span class="co">#&gt; order to put confidence bands around the intervals, you need at least 2500</span>
+<span class="co">#&gt; simulations.</span>
+<span class="co">#&gt; Summarizing data</span>
+<span class="co">#&gt; done.</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/save">save</a></span>(sim2, <span class="dt">file =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="dt">package =</span> <span class="st">"RxODE"</span>), <span class="st">"pipeline-sim2.rds"</span>), <span class="dt">version =</span> <span class="dv">2</span>)
+sim2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>()</code></pre></div>
+<p><img src="RxODE-pipeline_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+</div>
 </div>
   </div>
 
@@ -429,7 +492,11 @@ sim0 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a 
       <li><a href="#simulation-with-uncertainty-in-all-the-parameters-by-matrices">Simulation with uncertainty in all the parameters (by matrices)</a></li>
       </ul>
 </li>
-      <li><a href="#summarizing-the-simulation-output">Summarizing the simulation output</a></li>
+      <li>
+<a href="#summarizing-the-simulation-output">Summarizing the simulation output</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#simulating-from-a-data-frame-of-parameters">Simulating from a data-frame of parameters</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>
