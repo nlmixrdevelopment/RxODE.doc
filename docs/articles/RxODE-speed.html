@@ -68,30 +68,30 @@
     <li class="divider">
     <li class="dropdown-header">Advanced Features, Model Types, Technical Details</li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-model-types.html">RxODE model types</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-model-types.html">RxODE model types</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-cmt.html">Chainging RxODE compartment numbers</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-cmt.html">Chainging RxODE compartment numbers</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-transit-compartments.html">RxODE transit compartment models</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-transit-compartments.html">RxODE transit compartment models</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-shiny.html">Using Shiny with RxODE</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-shiny.html">Using Shiny with RxODE</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-covariates.html">How RxODE handles time-varying covariates</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-covariates.html">How RxODE handles time-varying covariates</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-stiff.html">Stiff Systems and Jacobian specification</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-stiff.html">Stiff Systems and Jacobian specification</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-rxUse.html">Adding compiled RxODE models to your package</a>
+      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-rxUse.html">Adding compiled RxODE models to your package</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-events.html">
+  <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-events.html">
     <span class="fas fa fas fa-stethoscope"></span>
      
     Dosing
@@ -173,7 +173,7 @@
       <h1>Speeding up RxODE</h1>
                         <h4 class="author">Matthew Fidler</h4>
             
-            <h4 class="date">2019-09-18</h4>
+            <h4 class="date">2019-10-05</h4>
       
       
       <div class="hidden name"><code>RxODE-speed.Rmd</code></div>
@@ -265,15 +265,15 @@ params.all &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;               expr       min        lq      mean    median        uq</span>
-<span class="co">#&gt;           runFor() 169.89102 193.22022 358.55627 233.04146 333.11217</span>
-<span class="co">#&gt;        runSapply() 172.58883 204.77634 434.23442 266.06340 425.91682</span>
-<span class="co">#&gt;  runSingleThread()  27.22233  29.58365  32.44752  31.85752  33.35448</span>
-<span class="co">#&gt;       run2Thread()  14.71703  16.20633  19.17206  18.04183  20.77727</span>
-<span class="co">#&gt;         max neval</span>
-<span class="co">#&gt;  2071.40482   100</span>
-<span class="co">#&gt;  2734.88624   100</span>
-<span class="co">#&gt;    53.56711   100</span>
-<span class="co">#&gt;    28.93005   100</span></code></pre></div>
+<span class="co">#&gt;           runFor() 321.48542 334.01045 347.84213 341.65844 350.91412</span>
+<span class="co">#&gt;        runSapply() 324.54641 336.58480 346.93190 341.45202 350.19373</span>
+<span class="co">#&gt;  runSingleThread()  69.54619  75.64315  79.30749  79.30727  82.65811</span>
+<span class="co">#&gt;       run2Thread()  38.81554  40.72863  43.26136  41.95446  43.51132</span>
+<span class="co">#&gt;        max neval</span>
+<span class="co">#&gt;  460.18549   100</span>
+<span class="co">#&gt;  435.90239   100</span>
+<span class="co">#&gt;   95.36174   100</span>
+<span class="co">#&gt;   61.63245   100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>It is clear that the <strong>largest</strong> jump in performance when using the <code>solve</code> method and providing <em>all</em> the parameters to RxODE to solve without looping over each subject with either a <code>for</code> or a <code>sapply</code>. The number of cores/threads applied to the solve also plays a role in the solving.</p>
@@ -287,32 +287,19 @@ bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocum
                                            <span class="dt">collapse=</span><span class="st">","</span>))))
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bench)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;           expr       min        lq      mean    median       uq      max</span>
-<span class="co">#&gt;   runThread(1) 26.501719 27.996709 29.685765 28.887725 30.82402 45.28786</span>
-<span class="co">#&gt;   runThread(2) 14.795769 15.542364 17.058132 15.850539 16.31308 36.30710</span>
-<span class="co">#&gt;   runThread(3) 10.460380 11.334208 12.847074 11.628623 12.31845 25.08627</span>
-<span class="co">#&gt;   runThread(4)  9.023937  9.376641 10.801999  9.722015 11.48063 18.23948</span>
-<span class="co">#&gt;   runThread(5)  7.453204  8.208324  9.817661  8.510073 10.80140 23.27613</span>
-<span class="co">#&gt;   runThread(6)  7.175867  7.614402  9.887698  9.108878 11.20255 20.43578</span>
-<span class="co">#&gt;   runThread(7)  9.082343  9.725501 10.533847 10.362353 11.09023 13.81347</span>
-<span class="co">#&gt;   runThread(8)  8.502201  9.147697 10.029615  9.834791 10.17536 19.41565</span>
-<span class="co">#&gt;   runThread(9)  7.991325  8.970306  9.758598  9.515837 10.15393 17.01386</span>
-<span class="co">#&gt;  runThread(10)  7.741716  8.728999  9.868508  9.405259 10.22208 20.34558</span>
-<span class="co">#&gt;  runThread(11)  7.440895  8.728276 10.337424  9.385345 10.97557 27.86956</span>
-<span class="co">#&gt;  runThread(12)  8.047190  8.725742 15.065612  9.938279 22.15200 33.69339</span>
-<span class="co">#&gt;  neval</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span>
-<span class="co">#&gt;    100</span></code></pre></div>
+<span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
+<span class="co">#&gt;   runThread(1) 73.43832 75.62052 77.64728 77.29225 78.87304 86.60166   100</span>
+<span class="co">#&gt;   runThread(2) 39.58017 40.81594 42.81354 41.58270 43.85807 55.53891   100</span>
+<span class="co">#&gt;   runThread(3) 28.65598 29.82720 32.32216 30.86377 32.71758 50.10136   100</span>
+<span class="co">#&gt;   runThread(4) 24.32297 25.90884 29.35065 27.43254 31.13820 42.64892   100</span>
+<span class="co">#&gt;   runThread(5) 21.25225 23.65765 26.25924 25.10523 28.59669 36.13966   100</span>
+<span class="co">#&gt;   runThread(6) 20.29292 22.21663 26.22979 23.18731 30.79265 41.94224   100</span>
+<span class="co">#&gt;   runThread(7) 25.82545 27.45324 30.90705 29.03935 32.42683 45.13008   100</span>
+<span class="co">#&gt;   runThread(8) 23.49382 26.23191 30.07356 27.35390 32.12302 44.04375   100</span>
+<span class="co">#&gt;   runThread(9) 22.95971 25.15792 28.43929 26.52309 29.93515 40.17490   100</span>
+<span class="co">#&gt;  runThread(10) 20.73435 23.70544 26.70978 25.37053 27.43569 41.01302   100</span>
+<span class="co">#&gt;  runThread(11) 20.87106 24.20528 27.98394 25.80884 32.44962 41.17969   100</span>
+<span class="co">#&gt;  runThread(12) 20.37869 23.09409 27.63274 25.41638 33.22531 40.06769   100</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(bench)</code></pre></div>
 <p><img src="RxODE-speed_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>There is a suite spot in speed vs number or cores. The system type, complexity of the ODE solving and the number of subjects may affect this arbitrary number of threads. 4 threads is a good number to use without any prior knowledge because most systems these days have at least 4 threads (or 2 processors with 4 threads).</p>
@@ -351,16 +338,16 @@ bench &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocum
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
 <span class="co">#&gt;  [1] Rcpp_1.0.2       compiler_3.6.0   pillar_1.4.2     sys_3.3         </span>
-<span class="co">#&gt;  [5] PreciseSums_0.3  tools_3.6.0      digest_0.6.20    evaluate_0.14   </span>
-<span class="co">#&gt;  [9] memoise_1.1.0    tibble_2.1.3     gtable_0.3.0     pkgconfig_2.0.2 </span>
+<span class="co">#&gt;  [5] PreciseSums_0.3  tools_3.6.0      digest_0.6.21    evaluate_0.14   </span>
+<span class="co">#&gt;  [9] memoise_1.1.0    tibble_2.1.3     gtable_0.3.0     pkgconfig_2.0.3 </span>
 <span class="co">#&gt; [13] rlang_0.4.0      commonmark_1.7   yaml_2.2.0       pkgdown_1.3.0   </span>
-<span class="co">#&gt; [17] xfun_0.9         stringr_1.4.0    dplyr_0.8.3      roxygen2_6.1.1  </span>
+<span class="co">#&gt; [17] xfun_0.10        stringr_1.4.0    dplyr_0.8.3      roxygen2_6.1.1  </span>
 <span class="co">#&gt; [21] xml2_1.2.2       knitr_1.25       desc_1.2.0       fs_1.3.1        </span>
 <span class="co">#&gt; [25] tidyselect_0.2.5 rprojroot_1.3-2  grid_3.6.0       glue_1.3.1      </span>
-<span class="co">#&gt; [29] R6_2.4.0         rmarkdown_1.15   polyclip_1.10-0  dparser_1.3.1-0 </span>
+<span class="co">#&gt; [29] R6_2.4.0         rmarkdown_1.16   polyclip_1.10-0  dparser_1.3.1-0 </span>
 <span class="co">#&gt; [33] farver_1.1.0     tweenr_1.0.1     purrr_0.3.2      ggplot2_3.2.1   </span>
-<span class="co">#&gt; [37] magrittr_1.5     units_0.6-4      backports_1.1.4  scales_1.0.0    </span>
-<span class="co">#&gt; [41] htmltools_0.3.6  MASS_7.3-51.4    assertthat_0.2.1 mime_0.7        </span>
+<span class="co">#&gt; [37] magrittr_1.5     units_0.6-4      backports_1.1.5  scales_1.0.0    </span>
+<span class="co">#&gt; [41] htmltools_0.4.0  MASS_7.3-51.4    assertthat_0.2.1 mime_0.7        </span>
 <span class="co">#&gt; [45] ggforce_0.3.1    colorspace_1.4-1 lotri_0.1.1      stringi_1.4.3   </span>
 <span class="co">#&gt; [49] lazyeval_0.2.2   munsell_0.5.0    markdown_1.1     crayon_1.3.4</span></code></pre></div>
 </div>

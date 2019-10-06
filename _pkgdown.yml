@@ -1,92 +1,6 @@
 template:
   params:
     bootswatch: flatly
- 
-
-reference:
-- title: Creating RxODE compiled objects
-  contents:
-  - RxODE
-- title: Creating RxODE event tables/data frames
-  contents:
-  - et
-  - etRbind
-  - etRep
-  - etSeq
-  - as.et
-  - eventTable
-  - add.dosing
-  - add.sampling
-- title: Solving, Simulating and Solving options
-  contents:
-  - rxSolve
-- title: Exploring RxODE and creating models with Shiny
-  contents:
-  - rxShiny
-  - genShinyApp.template
-- title: Cleaning caches
-  contents:
-  - rxClean
-  - rxTempDir
-- title: Using RxODE in Packages
-  contents:
-  - rxUse
-- title: Specialized Simulation functions
-  contents:
-  - cvPost
-  - rinvchisq
-- title: Optimizing models and/or adding precision
-  contents:
-  - rxOptExpr
-  - rxSumProdModel
-  - rxSetProd
-  - rxSetSum
-- title: Running unit tests in RxODE
-  contents:
-  - rxValidate
-- title: Internal functions
-  contents:
-  - coef.RxODE
-  - .rxFindPow
-  - .rxRmPrint
-  - .rxRmSens
-  - .rxSymPyJacobian
-  - .rxWinRtoolsPath
-  - is.rxEt
-  - is.rxSolve
-  - print.RxODE
-  - print.rxCoefSolve
-  - rxAddReturn
-  - rxAssignPtr
-  - rxChain
-  - rxCompile
-  - rxCores
-  - rxDelete
-  - rxDfdy
-  - rxFoExpandEta
-  - rxGetRxODE
-  - rxHtml
-  - rxInv
-  - rxIsCurrent
-  - rxLhs
-  - rxNorm
-  - rxOptions
-  - rxParams
-  - rxPermissive
-  - rxProgress
-  - rxSimThetaOmega
-  - rxStack
-  - rxState
-  - rxSymInvChol
-  - rxSymPyFix
-  - rxSymPySensitivity
-  - rxSymPyVersion
-  - rxSyncOptions
-  - rxTrans
-  - rxWinPythonSetup
-  - rxWinSetup
-  - summary.RxODE
-  - tibble
 navbar:
   left:
   - text: Articles
@@ -105,22 +19,22 @@ navbar:
         - text: "--------------------------"
         - text: "Advanced Features, Model Types, Technical Details"
         - text: "RxODE model types"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-model-types.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-model-types.html
         - text: "Chainging RxODE compartment numbers"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-cmt.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-cmt.html
         - text: "RxODE transit compartment models"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-transit-compartments.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-transit-compartments.html
         - text: "Using Shiny with RxODE"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-shiny.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-shiny.html
         - text: "How RxODE handles time-varying covariates"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-covariates.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-covariates.html
         - text: "Stiff Systems and Jacobian specification"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-stiff.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-stiff.html
         - text: "Adding compiled RxODE models to your package"
-          href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-rxUse.html
+          href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-rxUse.html
   - text: "Dosing"
     icon: fas fa-stethoscope
-    href: https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-events.html
+    href: https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-events.html
   - text: "Simulations"
     icon: fas fa-desktop
     menu:

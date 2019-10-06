@@ -67,7 +67,17 @@ parsDf <- tribble(
 ## Now solve the dataset
 solveData <- rxSolve(theo, parsDf, d)
 
+plot(solveData, cp)
+
+print(solveData)
+
+## Of course the fasest way to solve if you don't care about the RxODE extra parameters is
+
+solveData <- rxSolve(theo, parsDf, d, returnType="data.frame")
+
 ## solved data
-solveData
+dplyr::as.tbl(solveData)
+
+data.table::data.table(solveData)
 ```
 
