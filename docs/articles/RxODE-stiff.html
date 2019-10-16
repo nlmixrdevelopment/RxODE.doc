@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="RxODE Jacobian specification and Stiff Systems">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -167,12 +168,13 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>RxODE Jacobian specification and Stiff Systems</h1>
             
-            <h4 class="date">2019-10-10</h4>
+            <h4 class="date">2019-10-16</h4>
       
       
       <div class="hidden name"><code>RxODE-stiff.Rmd</code></div>
@@ -186,15 +188,15 @@
 <a href="#stiff-odes-with-jacobian-specification" class="anchor"></a>Stiff ODEs with Jacobian Specification</h1>
 <p>Occasionally, you may come across a <a href="https://en.wikipedia.org/wiki/Stiff_equation"><strong>stiff</strong> differential equation</a>, that is a differential equation that is numerically unstable and small variations in parameters cause different solutions to the ODEs. One way to tackle this is to choose a stiff-solver, or hybrid stiff solver (like the default LSODA). Typically this is enough. However exact Jacobian solutions may increase the stability of the ODE. (Note the Jacobian is the derivative of the ODE specification with respect to each variable). In RxODE you can specify the Jacobian with the <code>df(state)/dy(variable)=</code> statement. A classic ODE that has stiff properties under various conditions is the <a href="http://www.ece.northwestern.edu/local-apps/matlabhelp/techdoc/math_anal/diffeq6.html">Van der Pol</a> differential equations.</p>
 <p>In RxODE these can be specified by the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RxODE)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RxODE)
 
-Vtpol2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/RxODE">RxODE</a></span>({
-    d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(y)  =<span class="st"> </span>dy
-    d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(dy) =<span class="st"> </span>mu<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>y<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>dy <span class="op">-</span><span class="st"> </span>y
+Vtpol2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/RxODE.html">RxODE</a></span>({
+    d<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span>(y)  =<span class="st"> </span>dy
+    d<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span>(dy) =<span class="st"> </span>mu<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>y<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>dy <span class="op">-</span><span class="st"> </span>y
     ## Jacobian
-    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(y)<span class="op">/</span><span class="kw">dy</span>(dy)  =<span class="st"> </span><span class="dv">1</span>
-    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(dy)<span class="op">/</span><span class="kw">dy</span>(y)  =<span class="st"> </span><span class="op">-</span><span class="dv">2</span><span class="op">*</span>dy<span class="op">*</span>mu<span class="op">*</span>y <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
-    <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(dy)<span class="op">/</span><span class="kw">dy</span>(dy) =<span class="st"> </span>mu<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>y<span class="op">^</span><span class="dv">2</span>)
+    <span class="kw"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span>(y)<span class="op">/</span><span class="kw">dy</span>(dy)  =<span class="st"> </span><span class="dv">1</span>
+    <span class="kw"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span>(dy)<span class="op">/</span><span class="kw">dy</span>(y)  =<span class="st"> </span><span class="op">-</span><span class="dv">2</span><span class="op">*</span>dy<span class="op">*</span>mu<span class="op">*</span>y <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+    <span class="kw"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span>(dy)<span class="op">/</span><span class="kw">dy</span>(dy) =<span class="st"> </span>mu<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>y<span class="op">^</span><span class="dv">2</span>)
     ## Initial conditions
     <span class="kw">y</span>(<span class="dv">0</span>) =<span class="st"> </span><span class="dv">2</span>
     <span class="kw">dy</span>(<span class="dv">0</span>) =<span class="st"> </span><span class="dv">0</span>
@@ -202,12 +204,12 @@ Vtpol2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
     mu =<span class="st"> </span><span class="dv">1</span> ## nonstiff; 10 moderately stiff; 1000 stiff
 })
 
-et &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/eventTable">eventTable</a></span>();
-et<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/add.sampling">add.sampling</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">200</span>));
-et<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/add.dosing">add.dosing</a></span>(<span class="dv">20</span>, <span class="dt">start.time=</span><span class="dv">0</span>);
+et &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/eventTable.html">eventTable</a></span>();
+et<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/add.sampling.html">add.sampling</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">200</span>));
+et<span class="op">$</span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/add.dosing.html">add.dosing</a></span>(<span class="dv">20</span>, <span class="dt">start.time=</span><span class="dv">0</span>);
 
-s1 &lt;-<span class="st"> </span>Vtpol2 <span class="op">%&gt;%</span><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(et, <span class="dt">method=</span><span class="st">"lsoda"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(s1)</code></pre></div>
+s1 &lt;-<span class="st"> </span>Vtpol2 <span class="op">%&gt;%</span><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(et, <span class="dt">method=</span><span class="st">"lsoda"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(s1)</code></pre></div>
 <pre><code>## ___________________________ Solved RxODE object ___________________________
 ## -- Parameters ($params): --------------------------------------------------
 ##  
@@ -229,8 +231,8 @@ s1 &lt;-<span class="st"> </span>Vtpol2 <span class="op">%&gt;%</span><span clas
 ## # ... with 194 more rows
 ## ___________________________________________________________________________</code></pre>
 <p>While this is not stiff at mu=1, mu=1000 is a stiff system</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s2 &lt;-<span class="st"> </span>Vtpol2 <span class="op">%&gt;%</span><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">mu=</span><span class="dv">1000</span>), et)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(s2)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s2 &lt;-<span class="st"> </span>Vtpol2 <span class="op">%&gt;%</span><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">mu=</span><span class="dv">1000</span>), et)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(s2)</code></pre></div>
 <pre><code>## ___________________________ Solved RxODE object ___________________________
 ## -- Parameters ($params): --------------------------------------------------
 ##  
@@ -272,7 +274,7 @@ s1 &lt;-<span class="st"> </span>Vtpol2 <span class="op">%&gt;%</span><span clas
     mu = 1 ## nonstiff; 10 moderately stiff; 1000 stiff
 }, calcJac=TRUE)
 </code></pre>
-<p>To see the generated model, you can use <code><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxCat">rxCat()</a></code>:</p>
+<p>To see the generated model, you can use <code><a href="https://rdrr.io/pkg/RxODE/man/rxCat.html">rxCat()</a></code>:</p>
 <pre><code>&gt; rxCat(Vtpol)
 d/dt(y)=dy;
 d/dt(dy)=mu*(1-y^2)*dy-y;
@@ -288,6 +290,7 @@ df(dy)/dy(dy)=mu*(-Rx_pow_di(y,2)+1);
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -300,17 +303,20 @@ df(dy)/dy(dy)=mu*(-Rx_pow_di(y,2)+1);
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Matthew L. Fidler, Melissa Hallow, Wenping Wang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

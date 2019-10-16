@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="RxODE Data Frames">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -167,12 +168,13 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>RxODE Data Frames</h1>
             
-            <h4 class="date">2019-10-10</h4>
+            <h4 class="date">2019-10-16</h4>
       
       
       <div class="hidden name"><code>RxODE-data-frame.Rmd</code></div>
@@ -188,40 +190,40 @@
 <div id="creating-an-interactive-data-frame" class="section level2">
 <h2 class="hasAnchor">
 <a href="#creating-an-interactive-data-frame" class="anchor"></a>Creating an interactive data frame</h2>
-<p>RxODE supports returning a solved object that is a modified data-frame. This is done by the <code><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict()</a></code>, <code><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve()</a></code>, or <code><a href="https://www.rdocumentation.org/packages/RxODE/topics/rxSolve">rxSolve()</a></code> methods.</p>
+<p>RxODE supports returning a solved object that is a modified data-frame. This is done by the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>, <code><a href="https://rdrr.io/r/base/solve.html">solve()</a></code>, or <code><a href="https://rdrr.io/pkg/RxODE/man/rxSolve.html">rxSolve()</a></code> methods.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RxODE)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(units)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RxODE)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(units)
 
 ## Setup example model
-mod1 &lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/RxODE">RxODE</a></span>({
+mod1 &lt;-<span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/RxODE.html">RxODE</a></span>({
     C2 =<span class="st"> </span>centr<span class="op">/</span>V2;
     C3 =<span class="st"> </span>peri<span class="op">/</span>V3;
-    d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(depot) =<span class="op">-</span>KA<span class="op">*</span>depot;
-    d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(centr) =<span class="st"> </span>KA<span class="op">*</span>depot <span class="op">-</span><span class="st"> </span>CL<span class="op">*</span>C2 <span class="op">-</span><span class="st"> </span>Q<span class="op">*</span>C2 <span class="op">+</span><span class="st"> </span>Q<span class="op">*</span>C3;
-    d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(peri)  =<span class="st">                    </span>Q<span class="op">*</span>C2 <span class="op">-</span><span class="st"> </span>Q<span class="op">*</span>C3;
-    d<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/TDist">dt</a></span>(eff)  =<span class="st"> </span>Kin <span class="op">-</span><span class="st"> </span>Kout<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>C2<span class="op">/</span>(EC50<span class="op">+</span>C2))<span class="op">*</span>eff;
+    d<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span>(depot) =<span class="op">-</span>KA<span class="op">*</span>depot;
+    d<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span>(centr) =<span class="st"> </span>KA<span class="op">*</span>depot <span class="op">-</span><span class="st"> </span>CL<span class="op">*</span>C2 <span class="op">-</span><span class="st"> </span>Q<span class="op">*</span>C2 <span class="op">+</span><span class="st"> </span>Q<span class="op">*</span>C3;
+    d<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span>(peri)  =<span class="st">                    </span>Q<span class="op">*</span>C2 <span class="op">-</span><span class="st"> </span>Q<span class="op">*</span>C3;
+    d<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">dt</a></span>(eff)  =<span class="st"> </span>Kin <span class="op">-</span><span class="st"> </span>Kout<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>C2<span class="op">/</span>(EC50<span class="op">+</span>C2))<span class="op">*</span>eff;
 });
 
 ## Seup parameters and initial conditions
 
 theta &lt;-<span class="st"> </span>
-<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">KA=</span><span class="fl">2.94E-01</span>, <span class="dt">CL=</span><span class="fl">1.86E+01</span>, <span class="dt">V2=</span><span class="fl">4.02E+01</span>, <span class="co"># central </span>
+<span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">KA=</span><span class="fl">2.94E-01</span>, <span class="dt">CL=</span><span class="fl">1.86E+01</span>, <span class="dt">V2=</span><span class="fl">4.02E+01</span>, <span class="co"># central </span>
       <span class="dt">Q=</span><span class="fl">1.05E+01</span>,  <span class="dt">V3=</span><span class="fl">2.97E+02</span>,              <span class="co"># peripheral</span>
       <span class="dt">Kin=</span><span class="dv">1</span>, <span class="dt">Kout=</span><span class="dv">1</span>, <span class="dt">EC50=</span><span class="dv">200</span>)               <span class="co"># effects</span>
 
-inits &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">eff=</span><span class="dv">1</span>);
+inits &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">eff=</span><span class="dv">1</span>);
 
 ## Setup dosing event information
-ev &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/eventTable">eventTable</a></span>(<span class="dt">amount.units=</span><span class="st">"mg"</span>, <span class="dt">time.units=</span><span class="st">"hours"</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/add.dosing">add.dosing</a></span>(<span class="dt">dose=</span><span class="dv">10000</span>, <span class="dt">nbr.doses=</span><span class="dv">10</span>, <span class="dt">dosing.interval=</span><span class="dv">12</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/add.dosing">add.dosing</a></span>(<span class="dt">dose=</span><span class="dv">20000</span>, <span class="dt">nbr.doses=</span><span class="dv">5</span>, <span class="dt">start.time=</span><span class="dv">120</span>,<span class="dt">dosing.interval=</span><span class="dv">24</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/add.sampling">add.sampling</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">240</span>);
+ev &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/eventTable.html">eventTable</a></span>(<span class="dt">amount.units=</span><span class="st">"mg"</span>, <span class="dt">time.units=</span><span class="st">"hours"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/add.dosing.html">add.dosing</a></span>(<span class="dt">dose=</span><span class="dv">10000</span>, <span class="dt">nbr.doses=</span><span class="dv">10</span>, <span class="dt">dosing.interval=</span><span class="dv">12</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/add.dosing.html">add.dosing</a></span>(<span class="dt">dose=</span><span class="dv">20000</span>, <span class="dt">nbr.doses=</span><span class="dv">5</span>, <span class="dt">start.time=</span><span class="dv">120</span>,<span class="dt">dosing.interval=</span><span class="dv">24</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/add.sampling.html">add.sampling</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">240</span>);
 
 
 ## Now solve
-x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(mod1,theta, ev, inits)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(mod1,theta, ev, inits)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -243,8 +245,8 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 <span class="co">#&gt; # ... with 235 more rows</span>
 <span class="co">#&gt; ___________________________________________________________________________</span></code></pre></div>
 <p>or</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(mod1,theta, ev, inits)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(mod1,theta, ev, inits)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -266,8 +268,8 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 <span class="co">#&gt; # ... with 235 more rows</span>
 <span class="co">#&gt; ___________________________________________________________________________</span></code></pre></div>
 <p>Or with <code>mattigr</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(theta, ev, inits)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(theta, ev, inits)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -293,11 +295,11 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 <h2 class="hasAnchor">
 <a href="#using-the-solved-object-as-a-simple-data-frame" class="anchor"></a>Using the solved object as a simple data frame</h2>
 <p>The solved object acts as a <code>data.frame</code> or <code>tbl</code> that can be filtered by <code>dpylr</code>. For example you could filter it easily.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)
 ## You can  drop units for comparisons and filtering
-x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(theta,ev,inits) <span class="op">%&gt;%</span><span class="st"> </span>drop_units <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(time <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>as.tbl
+x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(theta,ev,inits) <span class="op">%&gt;%</span><span class="st"> </span>drop_units <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span>(time <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>as.tbl
 ## or keep them and compare with the proper units.
-x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(theta,ev,inits) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(time <span class="op">&lt;=</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/reexports">set_units</a></span>(<span class="dv">3</span>, hr)) <span class="op">%&gt;%</span><span class="st"> </span>as.tbl
+x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(theta,ev,inits) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span>(time <span class="op">&lt;=</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/RxODE/man/reexports.html">set_units</a></span>(<span class="dv">3</span>, hr)) <span class="op">%&gt;%</span><span class="st"> </span>as.tbl
 x
 <span class="co">#&gt; # A tibble: 4 x 7</span>
 <span class="co">#&gt;    time    C2    C3  depot centr  peri   eff</span>
@@ -313,8 +315,8 @@ x
 <a href="#updating-the-data-set-interactively" class="anchor"></a>Updating the data-set interactively</h1>
 <p>However it isn’t just a simple data object. You can use the solved object to update parameters on the fly, or even change the sampling time.</p>
 <p>First we need to recreate the original solved system:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(theta,ev,inits);
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(theta,ev,inits);
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -343,7 +345,7 @@ x
 <span class="co">#&gt; [1] 1</span></code></pre></div>
 <p>which shows the initial condition of the effect compartment. If you wished to change this initial condition to 2, this can be done easily by:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>eff0 &lt;-<span class="st"> </span><span class="dv">2</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -364,7 +366,7 @@ x
 <span class="co">#&gt; 6     5  36.5 7.18   2299. 1467. 2132.  1.23</span>
 <span class="co">#&gt; # ... with 235 more rows</span>
 <span class="co">#&gt; ___________________________________________________________________________</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(x)</code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(x)</code></pre></div>
 <p><img src="RxODE-data-frame_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
 </div>
 <div id="modifying-observation-times-for-rxode" class="section level2">
@@ -372,8 +374,8 @@ x
 <a href="#modifying-observation-times-for-rxode" class="anchor"></a>Modifying observation times for RxODE</h2>
 <p>Notice that the initial effect is now <code>2</code>.</p>
 <p>You can also change the sampling times easily by this method by changing <code>t</code> or <code>time</code>. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>t &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dt">length.out=</span><span class="dv">20</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dt">length.out=</span><span class="dv">20</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -394,18 +396,18 @@ x
 <span class="co">#&gt; 6 1.3157895  50.1 1.44    6792. 2013. 427.   1.44</span>
 <span class="co">#&gt; # ... with 14 more rows</span>
 <span class="co">#&gt; ___________________________________________________________________________</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(x)</code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(x)</code></pre></div>
 <p><img src="RxODE-data-frame_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 <div id="modifying-simulation-parameters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modifying-simulation-parameters" class="anchor"></a>Modifying simulation parameters</h2>
-<p>You can also access or change parameters by the <code>$</code> operator. For example, accessing <code>KA</code> can be done by:</p>
+<p>You can also access or change parameters by the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator. For example, accessing <code>KA</code> can be done by:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>KA
 <span class="co">#&gt; [1] 0.294</span></code></pre></div>
 <p>And you may change it by assigning it to a new value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>KA &lt;-<span class="st"> </span><span class="dv">1</span>;
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)
+<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)
 <span class="co">#&gt; ___________________________ Solved RxODE object ___________________________</span>
 <span class="co">#&gt; -- Parameters ($params): --------------------------------------------------</span>
 <span class="co">#&gt;  </span>
@@ -426,7 +428,7 @@ x
 <span class="co">#&gt; 6 1.3157895 106.  3.66   2683. 4272. 1086.   1.64</span>
 <span class="co">#&gt; # ... with 14 more rows</span>
 <span class="co">#&gt; ___________________________________________________________________________</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(x)</code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(x)</code></pre></div>
 <p><img src="RxODE-data-frame_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
 <p>You can access/change all the parameters, initialization(s) or events with the <code>$params</code>, <code>$inits</code>, <code>$events</code> accessor syntax, similar to what is used above.</p>
 <p>This syntax makes it easy to update and explore the effect of various parameters on the solved object.</p>
@@ -435,6 +437,7 @@ x
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -459,17 +462,20 @@ x
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Matthew L. Fidler, Melissa Hallow, Wenping Wang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
