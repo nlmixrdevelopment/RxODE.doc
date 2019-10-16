@@ -60,38 +60,38 @@
       <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-syntax.html">RxODE mini language syntax</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-pipeline.html">RxODE with piping ie %&gt;%</a>
+      <a href="../articles/RxODE-pipeline.html">RxODE with piping ie %&gt;%</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/speed.html">Speeding up RxODE ODE solving</a>
+      <a href="../articles/speed.html">Speeding up RxODE ODE solving</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Advanced Features, Model Types, Technical Details</li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-model-types.html">RxODE model types</a>
+      <a href="../articles/RxODE-model-types.html">RxODE model types</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-cmt.html">Chainging RxODE compartment numbers</a>
+      <a href="../articles/RxODE-cmt.html">Chainging RxODE compartment numbers</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-transit-compartments.html">RxODE transit compartment models</a>
+      <a href="../articles/RxODE-transit-compartments.html">RxODE transit compartment models</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-shiny.html">Using Shiny with RxODE</a>
+      <a href="../articles/RxODE-shiny.html">Using Shiny with RxODE</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-covariates.html">How RxODE handles time-varying covariates</a>
+      <a href="../articles/RxODE-covariates.html">How RxODE handles time-varying covariates</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-stiff.html">Stiff Systems and Jacobian specification</a>
+      <a href="../articles/RxODE-stiff.html">Stiff Systems and Jacobian specification</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-rxUse.html">Adding compiled RxODE models to your package</a>
+      <a href="../articles/RxODE-rxUse.html">Adding compiled RxODE models to your package</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-events.html">
+  <a href="../articles/RxODE-events.html">
     <span class="fas fa fas fa-stethoscope"></span>
      
     Dosing
@@ -107,13 +107,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/rxode-single-subject.html">Single Subject ODE solving</a>
+      <a href="../articles/rxode-single-subject.html">Single Subject ODE solving</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-sim-var.html">Multiple Subject RxODE Simulation</a>
+      <a href="../articles/RxODE-sim-var.html">Multiple Subject RxODE Simulation</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-prior-data.html">Using Prior Data for ODE solving</a>
+      <a href="../articles/RxODE-prior-data.html">Using Prior Data for ODE solving</a>
     </li>
   </ul>
 </li>
@@ -172,7 +172,7 @@
     <div class="page-header toc-ignore">
       <h1>Changing RxODE compartment numbers</h1>
             
-            <h4 class="date">2019-10-05</h4>
+            <h4 class="date">2019-10-10</h4>
       
       
       <div class="hidden name"><code>RxODE-cmt.Rmd</code></div>
@@ -269,8 +269,8 @@ pbpk &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocume
 })</code></pre></div>
 <p>If you look at the summary, you can see where RxODE assigned the compartment number(s)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(pbpk)</code></pre></div>
-<pre><code>#&gt; RxODE 0.9.1-7 model named rx_634f5be6b22fb158dce839e2a827bf2b model (ready). 
-#&gt; DLL: /tmp/Rtmptx26bW/.rxCache/rx_634f5be6b22fb158dce839e2a827bf2b__.rxd/rx_634f5be6b22fb158dce839e2a827bf2b_.so
+<pre><code>#&gt; RxODE 0.9.1-7 model named rx_798f44001f2e1689c84086b5f86f8803 model (ready). 
+#&gt; DLL: /tmp/RtmpGSYxrc/.rxCache/rx_798f44001f2e1689c84086b5f86f8803__.rxd/rx_798f44001f2e1689c84086b5f86f8803_.so
 #&gt; -- User supplied parameters: ---------------------------------------------------
 #&gt;      lKbBR      lKbMU      lKbAD     lCLint eta.LClint      lKbBO      lKbRB 
 #&gt;         NA         NA         NA         NA         NA         NA         NA 
@@ -471,7 +471,7 @@ pbpk &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocume
 })</code></pre></div>
 <p>You can see this change in the simple printout</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pbpk2</code></pre></div>
-<pre><code>#&gt; RxODE 0.9.1-7 model named rx_158fe69a775be88e72bd9f71e99bec18 model (ready). 
+<pre><code>#&gt; RxODE 0.9.1-7 model named rx_0f941726f471e5c21cf71949489b72aa model (ready). 
 #&gt; x$state: Venous_Blood, Skin, Lungs, Heart, Brain, Muscles, Adipose, Spleen, Pancreas, Liver, Stomach, Gut, Bones, Kidneys, Arterial_Blood, Rest_of_Body
 #&gt; x$params: lKbBR, lKbMU, lKbAD, lCLint, eta.LClint, lKbBO, lKbRB, WT, BP, fup
 #&gt; x$lhs: KbBR, KbMU, KbAD, CLint, KbBO, KbRB, CO, QHT, QBR, QMU, QAD, QSK, QSP, QPA, QLI, QST, QGU, QHA, QBO, QKI, QRB, QLU, VLU, VHT, VBR, VMU, VAD, VSK, VSP, VPA, VLI, VST, VGU, VBO, VKI, VAB, VVB, VRB, fub, KbLU, KbHT, KbSK, KbSP, KbPA, KbLI, KbST, KbGU, KbKI, S15, C15</code></pre>
@@ -489,7 +489,7 @@ pbpk &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocume
     <span class="kw">cmt</span>(eff);
 })
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(ode.1c.ka)</code></pre></div>
-<pre><code>#&gt; RxODE 0.9.1-7 model named rx_276853d0127f66f0083088146399ae40 model (ready). 
+<pre><code>#&gt; RxODE 0.9.1-7 model named rx_19e3a9ebda1eb6152cd036af75e674cd model (ready). 
 #&gt; $state: depot, center
 #&gt; $stateExtra: eff
 #&gt; $params: V, KA, CL

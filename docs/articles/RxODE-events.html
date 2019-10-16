@@ -60,38 +60,38 @@
       <a href="https://nlmixrdevelopment.github.io/RxODE/articles/RxODE-syntax.html">RxODE mini language syntax</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-pipeline.html">RxODE with piping ie %&gt;%</a>
+      <a href="../articles/RxODE-pipeline.html">RxODE with piping ie %&gt;%</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/speed.html">Speeding up RxODE ODE solving</a>
+      <a href="../articles/speed.html">Speeding up RxODE ODE solving</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Advanced Features, Model Types, Technical Details</li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-model-types.html">RxODE model types</a>
+      <a href="../articles/RxODE-model-types.html">RxODE model types</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-cmt.html">Chainging RxODE compartment numbers</a>
+      <a href="../articles/RxODE-cmt.html">Chainging RxODE compartment numbers</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-transit-compartments.html">RxODE transit compartment models</a>
+      <a href="../articles/RxODE-transit-compartments.html">RxODE transit compartment models</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-shiny.html">Using Shiny with RxODE</a>
+      <a href="../articles/RxODE-shiny.html">Using Shiny with RxODE</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-covariates.html">How RxODE handles time-varying covariates</a>
+      <a href="../articles/RxODE-covariates.html">How RxODE handles time-varying covariates</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-stiff.html">Stiff Systems and Jacobian specification</a>
+      <a href="../articles/RxODE-stiff.html">Stiff Systems and Jacobian specification</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-rxUse.html">Adding compiled RxODE models to your package</a>
+      <a href="../articles/RxODE-rxUse.html">Adding compiled RxODE models to your package</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-events.html">
+  <a href="../articles/RxODE-events.html">
     <span class="fas fa fas fa-stethoscope"></span>
      
     Dosing
@@ -107,13 +107,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/rxode-single-subject.html">Single Subject ODE solving</a>
+      <a href="../articles/rxode-single-subject.html">Single Subject ODE solving</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-sim-var.html">Multiple Subject RxODE Simulation</a>
+      <a href="../articles/RxODE-sim-var.html">Multiple Subject RxODE Simulation</a>
     </li>
     <li>
-      <a href="https://nlmixrdevelopment.github.io/RxODE.doc/articles/RxODE-prior-data.html">Using Prior Data for ODE solving</a>
+      <a href="../articles/RxODE-prior-data.html">Using Prior Data for ODE solving</a>
     </li>
   </ul>
 </li>
@@ -172,7 +172,7 @@
     <div class="page-header toc-ignore">
       <h1>RxODE Events</h1>
             
-            <h4 class="date">2019-10-05</h4>
+            <h4 class="date">2019-10-10</h4>
       
       
       <div class="hidden name"><code>RxODE-events.Rmd</code></div>
@@ -509,6 +509,8 @@ ev</code></pre></div>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(m1, ev,
       <span class="dt">params=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">KA=</span><span class="fl">0.294</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)), <span class="fl">18.6</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(C2)</code></pre></div>
+<pre><code>#&gt; Warning in (function (idData, goodLvl, type = "parameter", warnIdSort) : ID missing in parameters dataset;
+#&gt;  Parameters are assumed to have the same order as the IDs in the event dataset</code></pre>
 <p><img src="RxODE-events_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 </div>
 <div id="add-doses-and-samples-within-a-sampling-window" class="section level3">
@@ -551,6 +553,8 @@ ev</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ev &lt;-<span class="st"> </span>ev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">48</span>,<span class="dt">length.out=</span><span class="dv">200</span>))
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(m1, ev, <span class="dt">params=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">KA=</span><span class="fl">0.294</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)), <span class="fl">18.6</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(C2)</code></pre></div>
+<pre><code>#&gt; Warning in (function (idData, goodLvl, type = "parameter", warnIdSort) : ID missing in parameters dataset;
+#&gt;  Parameters are assumed to have the same order as the IDs in the event dataset</code></pre>
 <p><img src="RxODE-events_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p>Of course in reality the dosing interval may only be 2 hours:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">42</span>)
@@ -560,6 +564,8 @@ ev &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
 <span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/RxODE/topics/et">et</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">48</span>,<span class="dt">length.out=</span><span class="dv">200</span>))
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(m1, ev, <span class="dt">params=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">KA=</span><span class="fl">0.294</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)), <span class="fl">18.6</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(C2)</code></pre></div>
+<pre><code>#&gt; Warning in (function (idData, goodLvl, type = "parameter", warnIdSort) : ID missing in parameters dataset;
+#&gt;  Parameters are assumed to have the same order as the IDs in the event dataset</code></pre>
 <p><img src="RxODE-events_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <p>The same sort of thing can be specified with sampling times. To specify the sampling times in terms of a sampling window, you can create a list of the sampling times. Each sampling time will be a two element ordered numeric vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">42</span>)
@@ -576,6 +582,8 @@ ev &lt;-<span class="st"> </span>ev <span class="op">%&gt;%</span><span class="s
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/solve">solve</a></span>(m1, ev, <span class="dt">params=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">KA=</span><span class="fl">0.294</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)), <span class="fl">18.6</span><span class="op">*</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">exp</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>)))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(C2) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()</code></pre></div>
+<pre><code>#&gt; Warning in (function (idData, goodLvl, type = "parameter", warnIdSort) : ID missing in parameters dataset;
+#&gt;  Parameters are assumed to have the same order as the IDs in the event dataset</code></pre>
 <p><img src="RxODE-events_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 <p>This shows the flexibility in dosing and sampling that the RxODE event tables allow.</p>
 </div>

@@ -454,9 +454,7 @@ library(ggplot2)
 rxSolve(m1, et) %>% plot(C2) + facet_wrap( ~ id)
 ```
 
-## Event Types for RxODE
-
-### Bolus Doses
+## Bolus Doses
 
 A bolus dose is the default type of dose in RxODE and only requires
 the `amt`/`dose`
@@ -474,7 +472,7 @@ rxSolve(m1, ev) %>% plot(C2) +
     xlab("Time")
 ```
 
-### Constant Infusion (in terms of duration and rate)
+## Constant Infusion (in terms of duration and rate)
 
 The next type of event is an infusion; There are two ways to specify
 an infusion; The first is the `dur` keyword.
@@ -558,7 +556,7 @@ p2 <- rxSolve(m1, ev, c(fdepot=0.25)) %>% plot(depot) +
 grid.arrange(p1,p2, nrow=1)
 ```
 
-### Modeled Rate and Duration of Infusion
+## Modeled Rate and Duration of Infusion
 
 You can model the duration, which is equivalent to NONMEM's
 `rate=-2`. As a mnemonic you can use the `dur=model` instead of
@@ -595,7 +593,7 @@ rxSolve(m1, ev, c(rateDepot=10000/3)) %>% plot(depot, C2) +
     xlab("Time")
 ```
 
-### Steady State
+## Steady State
 
 Steady state doses; These doses are solved until a steady state is
 reached with a constant inter-dose interval.
@@ -612,7 +610,7 @@ ev
 rxSolve(m1, ev) %>% plot(C2)
 ```
 
-### Steady state for complex dosing
+## Steady state for complex dosing
 
 By using the `ss=2` flag, you can use the super-positioning principle
 in linear kinetics to get steady state nonstandard dosing
@@ -642,7 +640,7 @@ rxSolve(m1, ev,maxsteps=10000) %>% plot(C2) +
 You can see that it takes a full dose cycle to reach the true complex
 steady state dosing.
 
-### Steady state for constant infusion or zero order processes
+## Steady state for constant infusion or zero order processes
 
 The last type of steady state that RxODE supports is steady-state
 constant infusion rate.  This can be specified the same way as NONMEM,
@@ -688,7 +686,7 @@ Not only can this be used for PK, it can be used for steady-state
 disease processes.
 
 
-### Reset Events
+## Reset Events
 
 Reset events are implemented by `evid=3` or `evid=reset`, for reset
 and `evid=4` for reset and dose.
@@ -725,7 +723,7 @@ In this case, the whole system is reset and the dose is given
 rxSolve(m1, ev) %>% plot(depot,C2, eff)
 ```
 
-### Turning off compartments
+## Turning off compartments
 
 You may also turn off a compartment, which is similar to a reset event.
 ```{r}
